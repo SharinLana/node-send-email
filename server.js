@@ -7,14 +7,15 @@ dotenv.config();
 
 app.use(express.json());
 
-
+const notFoundMiddleware = require("./middleware/notFound");
 
 app.get("/", (req, res) => {
-    res.send("Send Email")
-})
+  res.send("Send Email");
+});
+app.use(notFoundMiddleware);
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`)
-})
+  console.log(`Server running on port ${port}`);
+});
