@@ -11,7 +11,7 @@ const notFoundMiddleware = require("./middleware/notFound");
 const errorHandlerMiddleware = require("./middleware/errorHandler");
 
 app.get("/", (req, res) => {
-  res.send("Send Email");
+  res.send("<h2>Send Email Project</h2>");
 });
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
