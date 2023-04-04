@@ -8,11 +8,13 @@ dotenv.config();
 app.use(express.json());
 
 const notFoundMiddleware = require("./middleware/notFound");
+const errorHandlerMiddleware = require("./middleware/errorHandler");
 
 app.get("/", (req, res) => {
   res.send("Send Email");
 });
 app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
 
