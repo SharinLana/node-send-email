@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
 
-const sendEmai = async (req, res, next) => {
+const sendEmaiEthereal = async (req, res, next) => {
   let testAccount = await nodemailer.createTestAccount();
 
   const transporter = nodemailer.createTransport({
@@ -21,7 +22,25 @@ const sendEmai = async (req, res, next) => {
 
   res.json(info);
   // Then click the Send link in the browser and view the received data on the /send route
-//   Also, check the result in Ethereal.email by clicking "Open Mailbox" button
+  // Also, check the result in Ethereal.email by clicking "Open Mailbox" button
 };
 
-module.exports = sendEmai;
+const sendEmail = async (req, res, next) => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+  const msg = {
+    to: "lanasthoughts@gmail.com", // Recepient's email
+    from: "lana.sharin.webdev@gmail.com", // Must be the same as you used in SendGrid when creating identity
+    subject: "Sending with SendGrid is Fun",
+    text: "and easy to do anywhere, even with Node.js",
+    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+  };
+
+  const info = await sgMail.send(msg);
+
+  res.json(info);
+  // Then send the email via the browser. Check the "info" result at http://localhost:3000/send
+  // And make sure the lanasthoughts@gmail.com received the email
+};
+
+module.exports = sendEmail;
